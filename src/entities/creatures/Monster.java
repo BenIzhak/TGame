@@ -121,36 +121,4 @@ public class Monster extends Creature {
 		this.active = false;
 	}
 
-	public boolean isAliveOn() {
-		return isAliveOn;
-	}
-
-	public void setAliveOn(boolean isAliveOn) {
-		this.isAliveOn = isAliveOn;
-	}
-
-	public void setAlive() {
-		Thread aliveDelay = new Thread(new delayAlive());
-		aliveDelay.start();
-		health = DEFAULT_HEALTH;
-		setActive(true);
-		isAliveOn = false;
-	}
-
-	private class delayAlive implements Runnable {
-		@Override
-		public void run() {
-			try {
-				Thread.sleep(respawnTime);
-			} catch (Exception e) {
-				e.printStackTrace();
-				new Thread(this).start();
-				System.exit(0);
-
-			}
-
-		}
-
-	}
-
 }

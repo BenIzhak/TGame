@@ -27,12 +27,6 @@ public class EntityManager {
 		for (Entity e: Creatures) {
 			if (e.active) {
 				e.tick();
-			} else {
-				Monster monster = (Monster) e;
-				if (!monster.isAliveOn) {
-					monster.setAlive();
-					monster.setAliveOn(true);
-				}
 			}
 		}
 		for (Entity e : StaticEntities) {
