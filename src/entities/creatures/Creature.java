@@ -11,8 +11,8 @@ public abstract class Creature extends Entity {
 	public static final int DEFAULT_HEALTH = 100, DEFAULT_ATTACK = 5;
 	public static final float DEFAULT_PLAYER_SPEED = 2.7f;
 	public static final float DEFAULT_MIN_SPEED = 2.1f;
-	public static final float DEFAULT_MAX_SPEED = 3.0f;
-	public static final float DEFAULT_GRAVITY = 5.0f;
+	public static final float DEFAULT_MAX_SPEED = 3.9f;
+	public static final float DEFAULT_GRAVITY = 5.5f;
 
 	// Creature size
 	public static final int DEFAULT_CREATURE_WIDTH = 128;
@@ -45,7 +45,7 @@ public abstract class Creature extends Entity {
 			int tx = (int) (pX + xMove + bounds.x + bounds.width) / Tile.TILE_WIDTH;
 
 			if (!collisionWithTile(tx, (int) ((pY + bounds.y) / (Tile.TILE_HEIGHT)))
-					&& !collisionWithTile(tx, (int) ((pY + bounds.y + bounds.height/10) / Tile.TILE_HEIGHT))
+					&& !collisionWithTile(tx, (int) ((pY + bounds.y + bounds.height / 10) / Tile.TILE_HEIGHT))
 					&& (pX + bounds.x + bounds.width + xMove) < handler.getWorld().getWidth() * Tile.TILE_WIDTH) {
 				// upper corner right and bottom corner right
 				// The last term keeps us into the map
@@ -65,8 +65,8 @@ public abstract class Creature extends Entity {
 				// The last term keeps us into the map
 				pX += xMove;
 				side = true;
-			}else{
-				side  = false;
+			} else {
+				side = false;
 			}
 		}
 	}
@@ -107,9 +107,9 @@ public abstract class Creature extends Entity {
 	}
 
 	protected boolean collisionWithTile(int x, int y) {
-		//x and y are in Tile terms
+		// x and y are in Tile terms
 		return handler.getWorld().getTile(x, y).isSolid();
-															
+
 	}
 
 	public void hurt(int damage) {

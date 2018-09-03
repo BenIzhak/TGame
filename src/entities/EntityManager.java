@@ -10,60 +10,54 @@ import entities.statics.StaticEntity;
 import mainGame.Handler;
 
 public class EntityManager {
-	
+
 	private Handler handler;
 	private Player player;
-	private ArrayList<Entity> entities;
-	
-	
+	private ArrayList<Creature> Creatures;
+	private ArrayList<StaticEntity> StaticEntities;
+
 	public EntityManager(Handler handler, Player player) {
 		this.handler = handler;
 		this.player = player;
-		this.entities = new ArrayList<>();
+		this.Creatures = new ArrayList<>();
+		this.StaticEntities = new ArrayList<>();
 	}
-	
-	public void tick(){
-		for(int i = 0; i < entities.size(); i++){
-			Entity e = entities.get(i);
-			if(e instanceof Creature){
-				if(e.active){
-					e.tick();
-				}else{
-					Monster monster = (Monster) e;
-					if(!monster.isAliveOn){
-						monster.setAlive();
-						monster.setAliveOn(true);
-					}
-				}
-			}else{
+
+	public void tick() {
+		for (Entity e: Creatures) {
+			if (e.active) {
 				e.tick();
 			}
 		}
-		player.tick();
-		
-	}
-	
-	public void render(Graphics g){
-		// render static entities first
-		for(Entity e : entities){
-			if(e instanceof StaticEntity){
-				e.render(g);
-			}
+		for (Entity e : StaticEntities) {
+			e.tick();
 		}
-		for(Entity e : entities){
-			if(e instanceof Creature){
-				if(e.active){
-					e.render(g);
-				}
+		player.tick();
+
+	}
+
+	public void render(Graphics g) {
+		// render static entities first
+		for (Entity e : StaticEntities) {
+			e.render(g);
+		}
+		for (Entity e : Creatures) {
+			if (e.active) {
+				e.render(g);
 			}
 		}
 		player.render(g);
 	}
-	
-	public void addEntity(Entity e){
-		entities.add(e);
+
+	public void addEntity(Entity e) {
+		if (e instanceof Creature) {
+			Creatures.add((Creature) e);
+		} else {
+			StaticEntities.add((StaticEntity) e);
+		}
+
 	}
-	
+
 	// GETTERS AND SETTERS
 
 	public Handler getHandler() {
@@ -82,15 +76,12 @@ public class EntityManager {
 		this.player = player;
 	}
 
-	public ArrayList<Entity> getEntities() {
-		return entities;
+	public ArrayList<Creature> getCreatures() {
+		return Creatures;
 	}
 
-	public void setEntities(ArrayList<Entity> entities) {
-		this.entities = entities;
+	public ArrayList<StaticEntity> getStaticEntities() {
+		return StaticEntities;
 	}
-	
-	
-	
 
 }
