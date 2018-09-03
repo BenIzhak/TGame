@@ -85,7 +85,7 @@ public class World {
 					entityManager.addEntity(new Monster(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT - spawnYElignment, (int) (Creature.DEFAULT_CREATURE_WIDTH), (int) (Creature.DEFAULT_CREATURE_HEIGHT * 1.25)));
 				}
 				if(currentTile == 8){
-					entityManager.addEntity(new Tree(handler, 4 * Tile.TILE_WIDTH, 4 * Tile.TILE_HEIGHT));
+					entityManager.addEntity(new Tree(handler, (x-1) * Tile.TILE_WIDTH, (y-1) * Tile.TILE_HEIGHT));
 				}
 				tiles[x][y] = currentTile;
 			}

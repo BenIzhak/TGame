@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import entities.creatures.Creature;
 import entities.creatures.Monster;
 import entities.creatures.Player;
+import entities.statics.StaticEntity;
 import mainGame.Handler;
 
 public class EntityManager {
@@ -43,13 +44,17 @@ public class EntityManager {
 	}
 	
 	public void render(Graphics g){
-		for(Entity e:entities){
+		// render static entities first
+		for(Entity e : entities){
+			if(e instanceof StaticEntity){
+				e.render(g);
+			}
+		}
+		for(Entity e : entities){
 			if(e instanceof Creature){
 				if(e.active){
 					e.render(g);
 				}
-			}else{
-				e.render(g);
 			}
 		}
 		player.render(g);
