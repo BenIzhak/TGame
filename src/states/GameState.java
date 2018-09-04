@@ -26,6 +26,10 @@ public class GameState extends State {
 
 	@Override
 	public void render(Graphics g) {
+		if(!handler.getDisplay().getPanelVisibility()){
+			// show panel
+			handler.getDisplay().setPanelVisibility(true);
+		}
 		world.render(g);
 	}
 	
@@ -39,5 +43,5 @@ public class GameState extends State {
 		handler.getDisplay().getExpBar().setValue(EXP);
 		handler.getDisplay().getLblLevel().setText(LEVEL + "");
 	}
-
+	
 }

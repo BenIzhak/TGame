@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import input.KeyManager;
+import input.MouseManager;
 import mainGame.gfx.Assets;
 import mainGame.gfx.GameCamera;
 import states.GameState;
@@ -28,6 +29,7 @@ public class Game implements Runnable {
 	
 	// Input
 	private KeyManager keyManager;
+	private MouseManager mouseManager;
 	
 	// Camera
 	private GameCamera gameCamera;
@@ -43,12 +45,18 @@ public class Game implements Runnable {
 		this.title = title;
 		this.running = false;
 		this.keyManager = new KeyManager();
+		this.mouseManager = new MouseManager();
 	}
 	
 	// initialize the game components
 	private void init() {
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
+		display.getFrame().addMouseListener(mouseManager);
+		display.getFrame().addMouseMotionListener(mouseManager);
+		display.getCanvas().addMouseListener(mouseManager);
+		display.getCanvas().addMouseMotionListener(mouseManager);
+		
 		Assets.init();
 		
 		handler = new Handler(this);
@@ -56,9 +64,7 @@ public class Game implements Runnable {
 		
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
-		State.setState(gameState);
-		
-		
+		State.setState(menuState);
 		
 	}
 	
@@ -147,6 +153,11 @@ public class Game implements Runnable {
 	public GameCamera getGameCamera() {
 		return gameCamera;
 	}
+	
+	public MouseManager getMouseManager() {
+		return mouseManager;
+	}
+
 	public int getWidth() {
 		return width;
 	}
@@ -162,6 +173,10 @@ public class Game implements Runnable {
 	public Display getDisplay() {
 		return display;
 	}
+	public State getGameState() {
+		return gameState;
+	}
+	
 	
 
 

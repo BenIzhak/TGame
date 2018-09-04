@@ -9,7 +9,7 @@ public abstract class State {
 	
 	protected Handler handler;
 	
-	private static State currentState = null;
+	protected static State currentState = null;
 	
 		
 	public State(Handler handler) {

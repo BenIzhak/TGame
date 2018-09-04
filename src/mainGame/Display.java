@@ -59,6 +59,17 @@ public class Display {
 		canvas.setMinimumSize(new Dimension(width, height));
 		canvas.setFocusable(false);
 		
+		createPanel();
+		
+		frame.add(canvas, BorderLayout.NORTH);
+		frame.pack();
+		
+		// set panel visibility to false
+		panel.setVisible(false);
+	}
+	
+	private void createPanel(){
+		// init the panel components.
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(panelWidth, panelHeight));
 		panel.setMaximumSize(new Dimension(panelWidth, panelHeight));
@@ -113,9 +124,8 @@ public class Display {
 		panel.add(expBar);
 		panel.add(healthBar);
 		panel.add(stanimaBar);
-		frame.add(canvas, BorderLayout.NORTH);
 		frame.add(panel, BorderLayout.SOUTH);
-		frame.pack();
+		
 	}
 	
 	
@@ -156,6 +166,14 @@ public class Display {
 
 	public JLabel getLblLevel() {
 		return lblLevel;
+	}
+	
+	public void setPanelVisibility(boolean visibility){
+		panel.setVisible(visibility);
+	}
+	
+	public boolean getPanelVisibility(){
+		return panel.isVisible();
 	}
 	
 	

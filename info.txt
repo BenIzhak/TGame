@@ -1,3 +1,2 @@
 BUG: to do the die function in the player class
-
-
+IMPROVMENT: autoMove range

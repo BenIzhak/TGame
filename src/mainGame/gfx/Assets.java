@@ -4,12 +4,15 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 	
+	public static BufferedImage[] btnStart;
+	public static BufferedImage[] btnExit;
 	public static BufferedImage leftCornerGrass, grassMiddle, rightCornerGrass, rightUpperGrass, midUpperGrass, leftUpperGrass,bg;
 	public static BufferedImage tree;
 	public static BufferedImage[] playerWalkLeft, playerWalkRight, playerIdleLeft, playerIdleRight,
 	playerRunLeft, playerRunRight, playerDeadRight;
 	
 	public static void init(){
+		buttonsLoader();
 		bg = ImageLoader.loadImage("/textures/bg_1.png");
 		tree = ImageLoader.loadImage("/textures/tree_1.png");
 		grassTileLoader();
@@ -48,6 +51,15 @@ public class Assets {
 		leftUpperGrass = ImageLoader.loadImage("/textures/grass_4.png");
 		midUpperGrass = ImageLoader.loadImage("/textures/grass_5.png");
 		rightUpperGrass = ImageLoader.loadImage("/textures/grass_6.png");
+	}
+	
+	private static void buttonsLoader(){
+		btnStart = new BufferedImage[2];
+		btnExit = new BufferedImage[2];
+		btnStart[0] = ImageLoader.loadImage("/textures/buttons/startButtonNotPressed.png");
+		btnStart[1] = ImageLoader.loadImage("/textures/buttons/startButtonPressed.png");
+		btnExit[0] = ImageLoader.loadImage("/textures/buttons/exitButtonNotPressed.png");
+		btnExit[1] = ImageLoader.loadImage("/textures/buttons/exitButtonPressed.png");
 	}
 
 }

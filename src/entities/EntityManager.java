@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import entities.creatures.Creature;
-import entities.creatures.Monster;
 import entities.creatures.Player;
 import entities.statics.StaticEntity;
 import mainGame.Handler;

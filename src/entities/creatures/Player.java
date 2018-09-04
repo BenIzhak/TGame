@@ -196,13 +196,9 @@ public class Player extends Creature {
 		}
 		for (int i = 0; i < entities.size(); i++) {
 			StaticEntity e = entities.get(i);
-			System.out.println("<20: " + Math.abs((e.getpY() + Tile.TILE_HEIGHT) - this.pY));
-			System.out.println("<100: " + Math.abs((e.getpX() + (e.getWidth() / 4)) - this.pX));
-			System.out.println("pX: " + this.pX);
 			if (Math.abs((e.getpY() + Tile.TILE_HEIGHT) - this.pY) < 20
 					&& Math.abs((e.getpX() + (e.getWidth() / 3)) - this.pX) < 60) {
 				// we are in the range of an entity
-				System.out.println("get innnn");
 				int newEntityIndex = rand.nextInt(entities.size());
 				while (newEntityIndex == i) {
 					// teleport to another entity
