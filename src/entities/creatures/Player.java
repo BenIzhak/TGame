@@ -3,17 +3,20 @@ package entities.creatures;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 import entities.Entity;
+import entities.statics.StaticEntity;
 import mainGame.ErrorHandler;
 import mainGame.Handler;
 import mainGame.gfx.Animation;
 import mainGame.gfx.Assets;
+import tiles.Tile;
 
 public class Player extends Creature {
 
 	public static final int PLAYER_STANIMA = 500;
-	public static final int[] EXP_FOR_LEVEL = { 400, 500, 600 };
+	public static final int[] EXP_FOR_LEVEL = { 200, 250, 300 };
 
 	private int level, exp, stanima;
 	private float runSpeed;
@@ -54,8 +57,7 @@ public class Player extends Creature {
 		getInput();
 		stanimaRecover();
 		move();
-		handler.getGameCamera().centerOnEntity(this); // Center camera on the
-														// player
+		handler.getGameCamera().centerOnEntity(this); // Center camera on the											// player
 		// level update
 		levelUp();
 	}
@@ -135,17 +137,20 @@ public class Player extends Creature {
 		if (handler.getKeyManager().attack) {
 			attack();
 		}
+		if (handler.getKeyManager().jump) {
+			teleport();
+		}
 	}
 
 	// Others
 	private void attack() {
 		ArrayList<Creature> entities = handler.getWorld().getEntityManager().getCreatures();
 		for (int i = 0; i < entities.size(); i++) {
-			Entity e = entities.get(i);
+			Creature e = entities.get(i);
 			if (e.isActive()) {
 				if (Math.abs(e.getpX() + handler.getPlayer().getWidth() / 2 - (pX + getWidth() / 2)) < 20
 						&& Math.abs(e.getpY() - pY) < 20) {
-					((Creature) e).hurt(attack);
+					e.hurt(attack);
 				}
 			}
 		}
@@ -166,6 +171,54 @@ public class Player extends Creature {
 		// TODO
 	}
 
+	public void raiseExp(int exp) {
+		this.exp += exp;
+	}
+
+	private void levelUp() {
+
+		if (this.exp >= EXP_FOR_LEVEL[level - 1]) {
+			exp = 0;
+			level++;
+			setHealth(DEFAULT_HEALTH);
+			if (level == EXP_FOR_LEVEL.length + 1) {
+				ErrorHandler.MaxLevelError();
+			}
+		}
+	}
+
+	private void teleport() {
+		Random rand = new Random();
+		ArrayList<StaticEntity> entities = handler.getWorld().getEntityManager().getStaticEntities();
+		if (entities.size() <= 1) {
+			// if we have one or zero entities do nothing
+			return;
+		}
+		for (int i = 0; i < entities.size(); i++) {
+			StaticEntity e = entities.get(i);
+			System.out.println("<20: " + Math.abs((e.getpY() + Tile.TILE_HEIGHT) - this.pY));
+			System.out.println("<100: " + Math.abs((e.getpX() + (e.getWidth() / 4)) - this.pX));
+			System.out.println("pX: " + this.pX);
+			if (Math.abs((e.getpY() + Tile.TILE_HEIGHT) - this.pY) < 20
+					&& Math.abs((e.getpX() + (e.getWidth() / 3)) - this.pX) < 60) {
+				// we are in the range of an entity
+				System.out.println("get innnn");
+				int newEntityIndex = rand.nextInt(entities.size());
+				while (newEntityIndex == i) {
+					// teleport to another entity
+					newEntityIndex = rand.nextInt(entities.size());
+				}
+				StaticEntity randomEntity = entities.get(newEntityIndex);
+				float newPx = randomEntity.getpX() + (e.getWidth() / 3);
+				float newPy = randomEntity.getpY();
+				this.pX = newPx;
+				this.pY = newPy;
+				return;
+			}
+
+		}
+	}
+
 	// GETTER AND SETTERS
 	public int getLevel() {
 		return level;
@@ -177,24 +230,6 @@ public class Player extends Creature {
 
 	public int getExp() {
 		return exp;
-	}
-
-	public void raiseExp(int exp) {
-		this.exp += exp;
-	}
-
-	private void levelUp() {
-		if (level == EXP_FOR_LEVEL.length + 1) {
-			ErrorHandler.MaxLevelError();
-		}
-		if (this.exp >= EXP_FOR_LEVEL[level - 1]) {
-			exp = 0;
-			level++;
-			setHealth(DEFAULT_HEALTH);
-			if (level == EXP_FOR_LEVEL.length + 1) {
-				ErrorHandler.MaxLevelError();
-			}
-		}
 	}
 
 }
