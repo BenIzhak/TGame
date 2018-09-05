@@ -12,26 +12,31 @@ public class EntityManager {
 
 	private Handler handler;
 	private Player player;
-	private ArrayList<Creature> Creatures;
+	private ArrayList<Creature> creatures;
 	private ArrayList<StaticEntity> StaticEntities;
+	private int numOfActiveEntities;
 
 	public EntityManager(Handler handler, Player player) {
 		this.handler = handler;
 		this.player = player;
-		this.Creatures = new ArrayList<>();
+		this.creatures = new ArrayList<>();
 		this.StaticEntities = new ArrayList<>();
 	}
 
 	public void tick() {
-		for (Entity e: Creatures) {
+		for (int i = 0; i < creatures.size(); i++) {
+			Entity e = creatures.get(i);
 			if (e.active) {
 				e.tick();
+			}else{
+				creatures.remove(e);
 			}
 		}
 		for (Entity e : StaticEntities) {
 			e.tick();
 		}
 		player.tick();
+		this.numOfActiveEntities = creatures.size();
 
 	}
 
@@ -40,7 +45,7 @@ public class EntityManager {
 		for (Entity e : StaticEntities) {
 			e.render(g);
 		}
-		for (Entity e : Creatures) {
+		for (Entity e : creatures) {
 			if (e.active) {
 				e.render(g);
 			}
@@ -50,7 +55,7 @@ public class EntityManager {
 
 	public void addEntity(Entity e) {
 		if (e instanceof Creature) {
-			Creatures.add((Creature) e);
+			creatures.add((Creature) e);
 		} else {
 			StaticEntities.add((StaticEntity) e);
 		}
@@ -76,11 +81,16 @@ public class EntityManager {
 	}
 
 	public ArrayList<Creature> getCreatures() {
-		return Creatures;
+		return creatures;
 	}
 
 	public ArrayList<StaticEntity> getStaticEntities() {
 		return StaticEntities;
 	}
+
+	public int getNumOfActiveEntities() {
+		return numOfActiveEntities;
+	}
+	
 
 }

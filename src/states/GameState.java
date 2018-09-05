@@ -4,22 +4,22 @@ import java.awt.Graphics;
 
 import entities.creatures.Player;
 import mainGame.Handler;
-import worlds.World;
+import worlds.WorldsManager;
 
 public class GameState extends State {
 	
-	private World world;
+	private WorldsManager worldsManager;
 	
 	public GameState(Handler handler){
 		super(handler);
 		Player player = new Player(handler, 0, 0);
-		world = new World(handler, player, "res/worlds/world1.txt"); //Choose map
-		handler.setWorld(world);
+		this.worldsManager = new WorldsManager(handler, player, 2);
+		handler.setWorldsManger(this.worldsManager);
 	}
 
 	@Override
 	public void tick() {
-		world.tick();
+		worldsManager.tick();
 		barsUpdate();	
 	}
 
@@ -29,7 +29,7 @@ public class GameState extends State {
 			// show panel
 			handler.getDisplay().setPanelVisibility(true);
 		}
-		world.render(g);
+		worldsManager.render(g);
 	}
 	
 	private void barsUpdate(){
@@ -41,6 +41,15 @@ public class GameState extends State {
 		handler.getDisplay().getHealthBar().setValue(HP);
 		handler.getDisplay().getExpBar().setValue(EXP);
 		handler.getDisplay().getLblLevel().setText(LEVEL + "");
+	}
+	
+	// GETTERS AND SETTERS
+	public WorldsManager getWorldsManager() {
+		return worldsManager;
+	}
+
+	public void setWorldsManager(WorldsManager worldsManager) {
+		this.worldsManager = worldsManager;
 	}
 	
 }

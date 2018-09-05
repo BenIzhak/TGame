@@ -67,6 +67,7 @@ public class World {
 	
 
 	private void loadWorld(String path) {
+		int numOfMonsters = 0;
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");
 		width = Utils.parseInt(tokens[0]);
@@ -82,6 +83,7 @@ public class World {
 				int currentTile = Utils.parseInt(tokens[((x + y * width) + 4)]);
 				if(currentTile == 9){
 					// Add new monster to the map if the currentTile is 9
+					numOfMonsters++;
 					entityManager.addEntity(new Monster(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT - spawnYElignment, (int) (Creature.DEFAULT_CREATURE_WIDTH), (int) (Creature.DEFAULT_CREATURE_HEIGHT * 1.25)));
 				}
 				if(currentTile == 8){
@@ -89,6 +91,9 @@ public class World {
 				}
 				tiles[x][y] = currentTile;
 			}
+		}
+		if(numOfMonsters == 0){
+			ErrorHandler.noMonstersError();
 		}
 		
 	}

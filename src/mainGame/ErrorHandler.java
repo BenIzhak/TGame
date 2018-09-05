@@ -11,6 +11,13 @@ public class ErrorHandler {
 		System.exit(0);
 	}
 	
+	public static void noMonstersError() {
+		String infoMessage = "Must be at least one monster in the map.";
+		String titleBar = "noMonstersError";
+		JOptionPane.showMessageDialog(null, infoMessage, "TGame: " + titleBar, JOptionPane.ERROR_MESSAGE);
+		System.exit(0);
+	}
+	
 	public static void MaxLevelError() {
 		String infoMessage = "Well Done!\n You reached the highes level.";
 		String titleBar = "GAME OVER";
