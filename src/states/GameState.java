@@ -20,8 +20,7 @@ public class GameState extends State {
 	@Override
 	public void tick() {
 		world.tick();
-		barsUpdate();
-		
+		barsUpdate();	
 	}
 
 	@Override

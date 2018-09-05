@@ -19,6 +19,20 @@ public class MenuState extends State {
 		handler.getMouseManager().setUiManager(uiManager);
 		
 		// Create new buttons
+		createButtons();
+	}
+
+	@Override
+	public void tick() {
+		uiManager.tick();
+	}
+
+	@Override
+	public void render(Graphics g) {
+		uiManager.render(g);
+	}
+	
+	private void createButtons(){
 		uiManager.addObject(new UIImageButton(390, 200, 500, 100, Assets.btnStart, new ClickListener() {
 			
 			@Override
@@ -36,16 +50,6 @@ public class MenuState extends State {
 				System.exit(0);
 			}
 		}));
-	}
-
-	@Override
-	public void tick() {
-		uiManager.tick();
-	}
-
-	@Override
-	public void render(Graphics g) {
-		uiManager.render(g);
 	}
 
 }
