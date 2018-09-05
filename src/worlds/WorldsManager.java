@@ -1,8 +1,10 @@
 package worlds;
 
 import java.awt.Graphics;
+import java.io.File;
 
 import entities.creatures.Player;
+import mainGame.ErrorHandler;
 import mainGame.Handler;
 
 public class WorldsManager {
@@ -20,6 +22,7 @@ public class WorldsManager {
 		this.currentWorldNum = 1;
 		this.player = player;
 		this.currentWorld = new World(handler, player, "res/worlds/world1.txt"); //Choose map to begin with
+		this.maxWorldNum = new File("res/worlds").listFiles().length;
 	}
 	
 	
@@ -38,6 +41,9 @@ public class WorldsManager {
 	
 	private void changeToNextWorld() {
 		this.currentWorldNum++;
+		if(this.currentWorldNum > this.maxWorldNum){
+			ErrorHandler.NoMoreMapError();
+		}
 		this.currentWorld = new World(handler, player, "res/worlds/world"+ this.currentWorldNum + ".txt");
 	}
 	

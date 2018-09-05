@@ -26,6 +26,8 @@ public class Display {
 	private int width, height;
 	private int panelWidth, panelHeight;
 	
+	private Color bgColor;
+	
 	
 	public Display(String title, int windowWidth, int windowHeight) {
 		super();
@@ -40,6 +42,7 @@ public class Display {
 		this.healthBar = new JProgressBar();
 		this.expBar = new JProgressBar();
 		this.lblLevel = new JLabel("");
+		this.bgColor = new Color(160, 230, 255);
 		
 		createDisplay();
 	}
@@ -51,7 +54,9 @@ public class Display {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
+		frame.getContentPane().setBackground(bgColor);
 		frame.setVisible(true);
+		
 		
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width, height));
@@ -61,11 +66,13 @@ public class Display {
 		
 		createPanel();
 		
+		
 		frame.add(canvas, BorderLayout.NORTH);
+		frame.add(panel, BorderLayout.SOUTH);
 		frame.pack();
 		
 		// set panel visibility to false
-		panel.setVisible(false);
+		this.setPanelVisibility(false);
 	}
 	
 	private void createPanel(){
@@ -75,6 +82,7 @@ public class Display {
 		panel.setMaximumSize(new Dimension(panelWidth, panelHeight));
 		panel.setMinimumSize(new Dimension(panelWidth, panelHeight));
 		panel.setBorder(BorderFactory.createEtchedBorder());
+		panel.setBackground(Color.lightGray);
 		panel.setLayout(null);
 		
 		JLabel lblHP = new JLabel("HP");
@@ -107,7 +115,7 @@ public class Display {
 		stanimaBar.setMinimum(0);
 		stanimaBar.setMaximum(100);
 		stanimaBar.setStringPainted(true);
-		stanimaBar.setForeground(Color.cyan);
+		stanimaBar.setForeground(new Color(10, 110, 250));
 		
 		expBar.setBounds(80, 88, 1180, 22);
 		expBar.setMinimum(0);
@@ -124,7 +132,6 @@ public class Display {
 		panel.add(expBar);
 		panel.add(healthBar);
 		panel.add(stanimaBar);
-		frame.add(panel, BorderLayout.SOUTH);
 		
 	}
 	

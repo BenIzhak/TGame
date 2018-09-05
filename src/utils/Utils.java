@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import mainGame.ErrorHandler;
+
 public class Utils {
 	
 	public static String loadFileAsString(String path){
@@ -16,7 +18,7 @@ public class Utils {
 			}
 			br.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			ErrorHandler.srcBoardLoadError();
 		}
 		return builder.toString();
 	}

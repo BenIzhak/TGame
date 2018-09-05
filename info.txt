@@ -1,4 +1,4 @@
 BUG: to do the die function in the player class
-BUG: handle the is no map error with try and catch
+IMPROVMENT; change the menu bg
 IMPROVMENT: autoMove range
 IMPROVMENT: Map
