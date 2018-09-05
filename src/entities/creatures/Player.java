@@ -15,7 +15,7 @@ import tiles.Tile;
 public class Player extends Creature {
 
 	public static final int PLAYER_STANIMA = 500;
-	public static final int[] EXP_FOR_LEVEL = { 200, 250, 300 };
+	public static final int[] EXP_FOR_LEVEL = { 300, 480, 700 };
 
 	private int level, exp, stanima;
 	private float runSpeed;
@@ -31,6 +31,7 @@ public class Player extends Creature {
 	public Player(Handler handler, float pX, float pY) {
 		// Down here you change the player size
 		super(handler, pX, pY, (int) (DEFAULT_CREATURE_WIDTH), (int) (DEFAULT_CREATURE_HEIGHT * 1.25));
+		super.attack = DEFAULT_PLAYER_ATTACK;
 		bounds.x = 36;
 		bounds.y = 20;
 		bounds.width = width - 60;

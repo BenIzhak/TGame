@@ -8,7 +8,7 @@ import tiles.Tile;
 
 public abstract class Creature extends Entity {
 
-	public static final int DEFAULT_HEALTH = 100, DEFAULT_ATTACK = 5;
+	public static final int DEFAULT_HEALTH = 100, DEFAULT_MONSTER_ATTACK = 3, DEFAULT_PLAYER_ATTACK = 2; 
 	public static final float DEFAULT_PLAYER_SPEED = 2.7f;
 	public static final float DEFAULT_MIN_SPEED = 2.1f;
 	public static final float DEFAULT_MAX_SPEED = 3.9f;
@@ -27,7 +27,7 @@ public abstract class Creature extends Entity {
 	public Creature(Handler handler, float pX, float pY, int width, int height) {
 		super(handler, pX, pY, width, height);
 		this.health = DEFAULT_HEALTH;
-		this.attack = DEFAULT_ATTACK;
+		this.attack = DEFAULT_MONSTER_ATTACK;
 		this.gravity = DEFAULT_GRAVITY;
 		this.speed = DEFAULT_PLAYER_SPEED;
 		this.xMove = 0;

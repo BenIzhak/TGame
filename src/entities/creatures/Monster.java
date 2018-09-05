@@ -125,7 +125,7 @@ public class Monster extends Creature {
 	// Attack section
 	private void attack() {
 		if (attackTimeCounter == attackSpeed) {
-			if (Math.abs(handler.getPlayer().getpX() + handler.getPlayer().getWidth() / 2 - (pX + getWidth() / 2)) < 20
+			if (Math.abs(handler.getPlayer().getpX() + handler.getPlayer().getWidth() / 2 - (pX + getWidth() / 2)) < 30
 					&& Math.abs(handler.getPlayer().getpY() - pY) < 20) {
 				handler.getPlayer().hurt(attack);
 			}
