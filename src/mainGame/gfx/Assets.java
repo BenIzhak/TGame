@@ -9,7 +9,7 @@ public class Assets {
 	public static BufferedImage leftCornerGrass, grassMiddle, rightCornerGrass, rightUpperGrass, midUpperGrass, leftUpperGrass,bg;
 	public static BufferedImage tree;
 	public static BufferedImage[] playerWalkLeft, playerWalkRight, playerIdleLeft, playerIdleRight,
-	playerRunLeft, playerRunRight, playerDeadRight;
+	playerRunLeft, playerRunRight, playerDeadRight, playerDeadLeft;
 	
 	public static void init(){
 		buttonsLoader();
@@ -27,6 +27,8 @@ public class Assets {
 		playerRunLeft = new BufferedImage[10];
 		playerRunRight = new BufferedImage[10];
 		playerDeadRight = new BufferedImage[10];
+		playerDeadLeft = new BufferedImage[10];
+		
 		for(int i = 0; i < 10; i++){
 			playerWalkRight[i] = ImageLoader.loadImage("/textures/player/Walk_" + (i+1) + ".png");
 			playerWalkLeft[i] = ImageLoader.loadImage("/textures/player/Walk_" + (i+11) + ".png");
@@ -41,6 +43,7 @@ public class Assets {
 		}
 		for(int i = 0; i < 10; i++){
 			playerDeadRight[i] = ImageLoader.loadImage("/textures/player/Dead " + "(" + (i+1) + ")" + ".png");
+			playerDeadLeft[i] = ImageLoader.loadImage("/textures/player/Dead_left " + "(" + (i+1) + ")" + ".png");
 		}
 	}
 

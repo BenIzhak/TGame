@@ -32,6 +32,13 @@ public class ErrorHandler {
 		System.exit(0);
 	}
 	
+	public static void DieError() {
+		String infoMessage = "You lost all yours health points (HP)";
+		String titleBar = "GAME OVER";
+		JOptionPane.showMessageDialog(null, infoMessage, "TGame: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+		System.exit(0);
+	}
+	
 	public static void NoMoreMapError() {
 		String infoMessage = "Well Done!\n You beat all the monsters!";
 		String titleBar = "GAME OVER";

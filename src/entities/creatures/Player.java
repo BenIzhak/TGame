@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
-import entities.Entity;
 import entities.statics.StaticEntity;
 import mainGame.ErrorHandler;
 import mainGame.Handler;
@@ -28,7 +27,6 @@ public class Player extends Creature {
 	private Animation animIdleLeft;
 	private Animation animRunRight;
 	private Animation animRunLeft;
-	private Animation animDeadRight;
 
 	public Player(Handler handler, float pX, float pY) {
 		// Down here you change the player size
@@ -75,13 +73,12 @@ public class Player extends Creature {
 
 	// Animation section
 	protected void animationInit() {
-		animWalkRight = new Animation(150, Assets.playerWalkRight);
-		animWalkLeft = new Animation(150, Assets.playerWalkLeft);
-		animIdleRight = new Animation(1000, Assets.playerIdleRight);
-		animIdleLeft = new Animation(1000, Assets.playerIdleLeft);
-		animRunRight = new Animation(150, Assets.playerRunRight);
-		animRunLeft = new Animation(150, Assets.playerRunLeft);
-		animDeadRight = new Animation(200, Assets.playerDeadRight);
+		animWalkRight = new Animation(150, false, Assets.playerWalkRight);
+		animWalkLeft = new Animation(150, false, Assets.playerWalkLeft);
+		animIdleRight = new Animation(1000, false, Assets.playerIdleRight);
+		animIdleLeft = new Animation(1000, false, Assets.playerIdleLeft);
+		animRunRight = new Animation(150, false, Assets.playerRunRight);
+		animRunLeft = new Animation(150, false, Assets.playerRunLeft);
 	}
 
 	protected BufferedImage getCurrentAnimFrame() {
@@ -168,7 +165,7 @@ public class Player extends Creature {
 
 	@Override
 	public void die() {
-		// TODO
+		ErrorHandler.DieError();
 	}
 
 	public void raiseExp(int exp) {
