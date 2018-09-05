@@ -21,8 +21,8 @@ public class WorldsManager {
 		this.maxWorldNum = maxWorldNum;
 		this.currentWorldNum = 1;
 		this.player = player;
-		this.currentWorld = new World(handler, player, "res/worlds/world1.txt"); //Choose map to begin with
-		this.maxWorldNum = new File("res/worlds").listFiles().length;
+		this.currentWorld = new World(handler, player, "maps/world1.txt"); //Choose map to begin with
+		this.maxWorldNum = new File("res/maps").listFiles().length;
 	}
 	
 	
@@ -44,7 +44,7 @@ public class WorldsManager {
 		if(this.currentWorldNum > this.maxWorldNum){
 			ErrorHandler.NoMoreMapError();
 		}
-		this.currentWorld = new World(handler, player, "res/worlds/world"+ this.currentWorldNum + ".txt");
+		this.currentWorld = new World(handler, player, "res/maps/world"+ this.currentWorldNum + ".txt");
 	}
 	
 	

@@ -1,7 +1,5 @@
-/entities/
-/input/
+/textures/
 /mainGame/
-/states/
-/UI/
+/maps/
 /worlds/
-/utils/
+/res/
