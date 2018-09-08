@@ -15,8 +15,6 @@ public class Monster extends Creature {
 	// Animation
 	private Animation animWalkRight;
 	private Animation animWalkLeft;
-	private Animation animDeadRight;
-	private Animation animDeadLeft;
 
 	private float spawnX;
 	private long attackSpeed = 10; // Every "attackSpeed" frames try to attack.
@@ -40,16 +38,13 @@ public class Monster extends Creature {
 		// Animation
 		animWalkRight.tick();
 		animWalkLeft.tick();
-		if (health <= 0) {
-			animDeadLeft.tick();
-			animDeadRight.tick();
-		}
-		die();
 		// Movement
 		if (health > 0) {
 			attack();
 			autoMove();
 			move();
+		}else{
+			die();
 		}
 	}
 
@@ -67,29 +62,22 @@ public class Monster extends Creature {
 	public void healthIndicator(Graphics g){
 		 g.setColor(Color.red);
 		 g.fillRect((int) (pX + bounds.x - handler.getGameCamera().getxOffset()),
-		 (int) (pY - 17 + bounds.y - handler.getGameCamera().getyOffset()),
+		 (int) (pY - 15 + bounds.y - handler.getGameCamera().getyOffset()),
 		 (health * 100)/DEFAULT_HEALTH, 5);
 	}
 	
 	@Override
 	protected void animationInit() {
-		animWalkRight = new Animation(150, false, Assets.playerWalkRight);
-		animWalkLeft = new Animation(150, false, Assets.playerWalkLeft);
-		animDeadRight = new Animation(100, true, Assets.playerDeadRight);
-		animDeadLeft = new Animation(100, true, Assets.playerDeadLeft);
+		animWalkRight = new Animation(150, false, Assets.zombieWalkRight);
+		animWalkLeft = new Animation(150, false, Assets.zombieWalkLeft);
 	}
 
 	protected BufferedImage getCurrentAnimFrame() {
 		if (xMove < 0 && health > 0) {
 			return animWalkLeft.getCurrentFrame();
-		} else if (xMove > 0 && health > 0) {
-			return animWalkRight.getCurrentFrame();
 		} else {
-			if (side == false) {
-				return animDeadRight.getCurrentFrame();
-			} else {
-				return animDeadLeft.getCurrentFrame();
-			}
+			// (xMove > 0 && health > 0)
+			return animWalkRight.getCurrentFrame();
 		}
 	}
 
@@ -138,18 +126,8 @@ public class Monster extends Creature {
 
 	@Override
 	public void die() {
-		if (health <= 0) {
-			// set active = false only after the animation is finished.
-			int maxFrame = animDeadLeft.getMaxFrameNum();
-			if (animDeadLeft.getCurrentFrameNum() == maxFrame - 1) {
-				handler.getPlayer().raiseExp(100);
-				this.active = false;
-			} else if (animDeadRight.getCurrentFrameNum() == maxFrame - 1) {
-				handler.getPlayer().raiseExp(100);
-				this.active = false;
-			}
-		}
-
+		handler.getPlayer().raiseExp(100);
+		this.active = false;
 	}
 
 }

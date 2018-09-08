@@ -27,6 +27,8 @@ public class Player extends Creature {
 	private Animation animIdleLeft;
 	private Animation animRunRight;
 	private Animation animRunLeft;
+	private Animation animDeadRight;
+	private Animation animDeadLeft;
 
 	public Player(Handler handler, float pX, float pY) {
 		// Down here you change the player size
@@ -52,6 +54,11 @@ public class Player extends Creature {
 		animWalkLeft.tick();
 		animRunRight.tick();
 		animRunLeft.tick();
+		if (health <= 0) {
+			animDeadLeft.tick();
+			animDeadRight.tick();
+			die();
+		}
 		// Movement
 		getInput();
 		stanimaRecover();
@@ -80,26 +87,34 @@ public class Player extends Creature {
 		animIdleLeft = new Animation(1000, false, Assets.playerIdleLeft);
 		animRunRight = new Animation(150, false, Assets.playerRunRight);
 		animRunLeft = new Animation(150, false, Assets.playerRunLeft);
+		animDeadRight = new Animation(100, true, Assets.playerDeadRight);
+		animDeadLeft = new Animation(100, true, Assets.playerDeadLeft);
 	}
 
 	protected BufferedImage getCurrentAnimFrame() {
-		if (xMove < 0) {
+		if (xMove < 0 && health > 0) {
 			if (xMove == -runSpeed) {
 				return animRunLeft.getCurrentFrame();
 			} else {
 				return animWalkLeft.getCurrentFrame();
 			}
-		} else if (xMove > 0) {
+		} else if (xMove > 0 && health >0) {
 			if (xMove == runSpeed) {
 				return animRunRight.getCurrentFrame();
 			} else {
 				return animWalkRight.getCurrentFrame();
 			}
-		} else {
+		} else if(health > 0) {
 			if (xMove == 0 && side == true) {
 				return animIdleLeft.getCurrentFrame();
 			} else {
 				return animIdleRight.getCurrentFrame();
+			}
+		}else{
+			if (side == false) {
+				return animDeadRight.getCurrentFrame();
+			} else {
+				return animDeadLeft.getCurrentFrame();
 			}
 		}
 	}
@@ -166,7 +181,19 @@ public class Player extends Creature {
 
 	@Override
 	public void die() {
-		ErrorHandler.DieError();
+		if (health <= 0) {
+			// set active = false only after the animation is finished.
+			int maxFrame = animDeadLeft.getMaxFrameNum();
+			if (animDeadLeft.getCurrentFrameNum() == maxFrame - 1) {
+				this.active = false;
+			} else if (animDeadRight.getCurrentFrameNum() == maxFrame - 1) {
+				this.active = false;
+			}
+		}
+		if(this.active == false){
+			ErrorHandler.DieError();
+		}
+
 	}
 
 	public void raiseExp(int exp) {

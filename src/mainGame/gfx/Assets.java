@@ -10,13 +10,24 @@ public class Assets {
 	public static BufferedImage tree;
 	public static BufferedImage[] playerWalkLeft, playerWalkRight, playerIdleLeft, playerIdleRight,
 	playerRunLeft, playerRunRight, playerDeadRight, playerDeadLeft;
+	public static BufferedImage[] zombieWalkLeft, zombieWalkRight;
 	
 	public static void init(){
 		buttonsLoader();
 		bg = ImageLoader.loadImage("/textures/bg_1.png");
 		tree = ImageLoader.loadImage("/textures/tree_1.png");
 		grassTileLoader();
+		zombieImageLoader();
 		playerImageLoader();
+	}
+	
+	private static void grassTileLoader() {
+		leftCornerGrass = ImageLoader.loadImage("/textures/grass_1.png");
+		grassMiddle = ImageLoader.loadImage("/textures/grass_2.png");
+		rightCornerGrass = ImageLoader.loadImage("/textures/grass_3.png");
+		leftUpperGrass = ImageLoader.loadImage("/textures/grass_4.png");
+		midUpperGrass = ImageLoader.loadImage("/textures/grass_5.png");
+		rightUpperGrass = ImageLoader.loadImage("/textures/grass_6.png");
 	}
 
 	private static void playerImageLoader() {
@@ -46,14 +57,15 @@ public class Assets {
 			playerDeadLeft[i] = ImageLoader.loadImage("/textures/player/Dead_left " + "(" + (i+1) + ")" + ".png");
 		}
 	}
-
-	private static void grassTileLoader() {
-		leftCornerGrass = ImageLoader.loadImage("/textures/grass_1.png");
-		grassMiddle = ImageLoader.loadImage("/textures/grass_2.png");
-		rightCornerGrass = ImageLoader.loadImage("/textures/grass_3.png");
-		leftUpperGrass = ImageLoader.loadImage("/textures/grass_4.png");
-		midUpperGrass = ImageLoader.loadImage("/textures/grass_5.png");
-		rightUpperGrass = ImageLoader.loadImage("/textures/grass_6.png");
+	
+	private static void zombieImageLoader(){
+		zombieWalkLeft = new BufferedImage[10];
+		zombieWalkRight = new BufferedImage[10];
+		
+		for(int i = 0; i < 10; i++){
+			zombieWalkRight[i] = ImageLoader.loadImage("/textures/monsters/Walk " + "(" + (i+1) + ")" + ".png");
+			zombieWalkLeft[i] = ImageLoader.loadImage("/textures/monsters/Walk_left " + "(" + (i+1) + ")" + ".png");
+		}
 	}
 	
 	private static void buttonsLoader(){
