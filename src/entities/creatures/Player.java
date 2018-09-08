@@ -150,7 +150,7 @@ public class Player extends Creature {
 		if (handler.getKeyManager().attack) {
 			attack();
 		}
-		if (handler.getKeyManager().jump) {
+		if (handler.getKeyManager().teleport) {
 			teleport();
 		}
 	}

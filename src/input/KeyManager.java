@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener {
 	
 	private boolean[] keys;
-	public boolean up, down, left, right, runRight, runLeft, jump, attack;
+	public boolean up, down, left, right, runRight, runLeft, teleport, attack;
 	
 	
 
@@ -19,7 +19,7 @@ public class KeyManager implements KeyListener {
 		down = keys[KeyEvent.VK_DOWN];
 		left = keys[KeyEvent.VK_LEFT];
 		right = keys[KeyEvent.VK_RIGHT];
-		jump = keys[KeyEvent.VK_SPACE];
+		teleport = keys[KeyEvent.VK_UP];
 		runLeft = keys[KeyEvent.VK_LEFT] && keys[KeyEvent.VK_SHIFT];
 		runRight = keys[KeyEvent.VK_RIGHT] && keys[KeyEvent.VK_SHIFT];
 		attack = keys[KeyEvent.VK_CONTROL];
