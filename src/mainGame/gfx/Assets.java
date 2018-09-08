@@ -6,6 +6,7 @@ public class Assets {
 	
 	public static BufferedImage[] btnStart;
 	public static BufferedImage[] btnExit;
+	public static BufferedImage[] logo;
 	public static BufferedImage leftCornerGrass, grassMiddle, rightCornerGrass, rightUpperGrass, midUpperGrass, leftUpperGrass,bg;
 	public static BufferedImage tree;
 	public static BufferedImage[] playerWalkLeft, playerWalkRight, playerIdleLeft, playerIdleRight,
@@ -71,10 +72,12 @@ public class Assets {
 	private static void buttonsLoader(){
 		btnStart = new BufferedImage[2];
 		btnExit = new BufferedImage[2];
+		logo = new BufferedImage[1];
 		btnStart[0] = ImageLoader.loadImage("/textures/buttons/startButtonNotPressed.png");
 		btnStart[1] = ImageLoader.loadImage("/textures/buttons/startButtonPressed.png");
 		btnExit[0] = ImageLoader.loadImage("/textures/buttons/exitButtonNotPressed.png");
 		btnExit[1] = ImageLoader.loadImage("/textures/buttons/exitButtonPressed.png");
+		logo[0] = ImageLoader.loadImage("/textures/buttons/gameLogo.png");
 	}
 
 }
