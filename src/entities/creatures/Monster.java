@@ -60,6 +60,9 @@ public class Monster extends Creature {
 
 	// Animation section
 	public void healthIndicator(Graphics g){
+		/*
+		 * update and show the health indicator
+		 */
 		 g.setColor(Color.red);
 		 g.fillRect((int) (pX + bounds.x - handler.getGameCamera().getxOffset()),
 		 (int) (pY - 15 + bounds.y - handler.getGameCamera().getyOffset()),
@@ -68,11 +71,17 @@ public class Monster extends Creature {
 	
 	@Override
 	protected void animationInit() {
+		/*
+		 * initialize the animation  objects
+		 */
 		animWalkRight = new Animation(150, false, Assets.zombieWalkRight);
 		animWalkLeft = new Animation(150, false, Assets.zombieWalkLeft);
 	}
 
 	protected BufferedImage getCurrentAnimFrame() {
+		/*
+		 * return the current from to show according to the monster state
+		 */
 		if (xMove < 0 && health > 0) {
 			return animWalkLeft.getCurrentFrame();
 		} else {
@@ -83,6 +92,9 @@ public class Monster extends Creature {
 
 	// Movement section
 	private void autoMove() {
+		/*
+		 * responsible for the monster automatic movement.
+		 */
 		sideChange(Tile.TILE_WIDTH, Tile.TILE_WIDTH);
 		yMove = gravity;
 		if (side == false) {
@@ -93,8 +105,10 @@ public class Monster extends Creature {
 	}
 
 	private void sideChange(float maxLeft, float maxRight) {
-		// change the side that the monster move to
-		// maxLeft and maxRight are the boundaries from the spawn
+		/*
+		 * change the side that the monster move to.
+		 * maxLeft and maxRight are the boundaries from the spawn position.
+		 */
 		if (pX <= spawnX - maxLeft && groundDetictor()) {
 			side = false;
 		} else if (pX >= spawnX + maxRight && groundDetictor()) {
@@ -103,6 +117,11 @@ public class Monster extends Creature {
 	}
 
 	private void randMoveSpeed() {
+		/*
+		 * choose randomly the move speed for each monster.
+		 * the speed is greater than the DEFAULT_MIN_SPEED and
+		 * smaller than the DEFAULT_MAX_SPEED. 
+		 */
 		Random rnd = new Random();
 		speed = DEFAULT_MIN_SPEED + rnd.nextFloat() * (DEFAULT_MAX_SPEED - DEFAULT_MIN_SPEED);
 		if (((int) speed % 2) == 0) {
@@ -110,8 +129,14 @@ public class Monster extends Creature {
 		}
 	}
 
-	// Attack section
+	// Others
 	private void attack() {
+		/*
+		 * check if the player in the monster surrounding and attack him.
+		 * we want to attack the player every amount of time and not every 
+		 * frame (it's too fast to attack every frame) so we  use here the 
+		 * the attackTimeCounter.  
+		 */
 		if (attackTimeCounter == attackSpeed) {
 			if (Math.abs(handler.getPlayer().getpX() + handler.getPlayer().getWidth() / 2 - (pX + getWidth() / 2)) < 30
 					&& Math.abs(handler.getPlayer().getpY() - pY) < 20) {
@@ -126,6 +151,10 @@ public class Monster extends Creature {
 
 	@Override
 	public void die() {
+		/*
+		 * when the monster die raise the player's experience points
+		 * and deactivate the player.
+		 */
 		handler.getPlayer().raiseExp(100);
 		this.active = false;
 	}

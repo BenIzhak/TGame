@@ -15,7 +15,7 @@ import tiles.Tile;
 public class Player extends Creature {
 
 	public static final int PLAYER_STANIMA = 500;
-	public static final int[] EXP_FOR_LEVEL = { 300, 480, 700 };
+	public static final int[] EXP_FOR_LEVEL = { 300, 480, 700, 800 };
 
 	private int level, exp, stanima;
 	private float runSpeed;
@@ -55,16 +55,18 @@ public class Player extends Creature {
 		animRunRight.tick();
 		animRunLeft.tick();
 		if (health <= 0) {
+			// we want to tick the death animation only after the player dies.
 			animDeadLeft.tick();
 			animDeadRight.tick();
 			die();
 		}
 		// Movement
 		getInput();
-		stanimaRecover();
+		staminaRecover();
 		move();
-		handler.getGameCamera().centerOnEntity(this); // Center camera on the											// player
-		// level update
+		// Center camera on the
+		handler.getGameCamera().centerOnEntity(this); 											// player
+		// Level update
 		levelUp();
 	}
 
@@ -81,6 +83,9 @@ public class Player extends Creature {
 
 	// Animation section
 	protected void animationInit() {
+		/*
+		 * initialize the animation  objects
+		 */
 		animWalkRight = new Animation(150, false, Assets.playerWalkRight);
 		animWalkLeft = new Animation(150, false, Assets.playerWalkLeft);
 		animIdleRight = new Animation(1000, false, Assets.playerIdleRight);
@@ -92,6 +97,9 @@ public class Player extends Creature {
 	}
 
 	protected BufferedImage getCurrentAnimFrame() {
+		/*
+		 * return the current from to show according to the monster state
+		 */
 		if (xMove < 0 && health > 0) {
 			if (xMove == -runSpeed) {
 				return animRunLeft.getCurrentFrame();
@@ -121,6 +129,9 @@ public class Player extends Creature {
 
 	// Input section
 	private void getInput() {
+		/*
+		 * get input from the user and call the appropriate method.
+		 */
 		xMove = 0;
 		yMove = gravity;
 		if (handler.getKeyManager().left) {
@@ -157,6 +168,9 @@ public class Player extends Creature {
 
 	// Others
 	private void attack() {
+		/*
+		 * check if there are monsters in the surrounding and attack them.
+		 */
 		ArrayList<Creature> entities = handler.getWorld().getEntityManager().getCreatures();
 		for (int i = 0; i < entities.size(); i++) {
 			Creature e = entities.get(i);
@@ -170,7 +184,10 @@ public class Player extends Creature {
 
 	}
 
-	private void stanimaRecover() {
+	private void staminaRecover() {
+		/*
+		 * raise the stamina points if the player doesn't currently run.
+		 */
 		if (stanima > PLAYER_STANIMA) {
 			stanima = PLAYER_STANIMA;
 		}
@@ -181,8 +198,11 @@ public class Player extends Creature {
 
 	@Override
 	public void die() {
+		/*
+		 * set active to false only after the animation is finished.
+		 * after the player is dead pop the message.
+		 */
 		if (health <= 0) {
-			// set active = false only after the animation is finished.
 			int maxFrame = animDeadLeft.getMaxFrameNum();
 			if (animDeadLeft.getCurrentFrameNum() == maxFrame - 1) {
 				this.active = false;
@@ -197,11 +217,17 @@ public class Player extends Creature {
 	}
 
 	public void raiseExp(int exp) {
+		/*
+		 * raise the player's experience points 
+		 */
 		this.exp += exp;
 	}
 
 	private void levelUp() {
-
+		/*
+		 * when the player level up set the exp to zero and the health to it's max value.
+		 * check that the player doesn't reached the maximum level available. 
+		 */
 		if (this.exp >= EXP_FOR_LEVEL[level - 1]) {
 			exp = 0;
 			level++;
@@ -213,6 +239,11 @@ public class Player extends Creature {
 	}
 
 	private void teleport() {
+		/*
+		 * responsible for the teleport operation.
+		 * check if there is a static entity nearby and randomly teleport the player
+		 * to another static entity. if there is one (or zero) such entities do nothing.
+		 */
 		Random rand = new Random();
 		ArrayList<StaticEntity> entities = handler.getWorld().getEntityManager().getStaticEntities();
 		if (entities.size() <= 1) {

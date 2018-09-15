@@ -8,6 +8,7 @@ import tiles.Tile;
 
 public abstract class Creature extends Entity {
 
+	// Default values
 	public static final int DEFAULT_HEALTH = 100, DEFAULT_MONSTER_ATTACK = 3, DEFAULT_PLAYER_ATTACK = 2; 
 	public static final float DEFAULT_PLAYER_SPEED = 2.7f;
 	public static final float DEFAULT_MIN_SPEED = 2.1f;
@@ -36,11 +37,17 @@ public abstract class Creature extends Entity {
 	}
 
 	public void move() {
+		/*
+		 * calculate the new creature position. 
+		 */
 		moveX();
 		moveY();
 	}
 
 	public void moveX() {
+		/*
+		 * calculate the new creature horizontal position. 
+		 */
 		if (xMove > 0) { // Move right
 			int tx = (int) (pX + xMove + bounds.x + bounds.width) / Tile.TILE_WIDTH;
 
@@ -72,6 +79,9 @@ public abstract class Creature extends Entity {
 	}
 
 	public void moveY() {
+		/*
+		 * calculate the new creature vertical position. 
+		 */
 		if (yMove < 0) { // Up
 			int ty = (int) (pY + yMove + bounds.y) / Tile.TILE_HEIGHT;
 
@@ -93,7 +103,9 @@ public abstract class Creature extends Entity {
 	}
 
 	public boolean groundDetictor() {
-		// check if there is a solid tile (d pixels) under the creature
+		/*
+		 * check if there is a solid tile (d pixels) under the creature
+		 */
 		int d = 3;
 		if (collisionWithTile((int) (pX + bounds.x + 1) / Tile.TILE_WIDTH,
 				(int) (pY + bounds.y + bounds.height + d) / Tile.TILE_HEIGHT)
@@ -107,12 +119,18 @@ public abstract class Creature extends Entity {
 	}
 
 	protected boolean collisionWithTile(int x, int y) {
-		// x and y are in Tile terms
+		/*
+		 * check if there is a tile in (x,y). x and y are in Tile terms.
+		 */
 		return handler.getWorld().getTile(x, y).isSolid();
 
 	}
 
 	public void hurt(int damage) {
+		/*
+		 * subtract damage from the creature health points
+		 * if health is zero call the die method.
+		 */
 		health -= damage;
 		if (health <= 0) {
 			die();

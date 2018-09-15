@@ -16,20 +16,27 @@ public class GameCamera {
 	}
 	
 	public void move(float xAmt, float yAmt){
+		/*
+		 * move the game camera
+		 */
 		xOffset += xAmt;
 		yOffset += yAmt;
 		checkBlankSpace();
 	}
 	
-	// sets the xOffset and yOffset so the Entity e will be in the center
 	public void centerOnEntity(Entity e){
+		/*
+		 * sets the xOffset and yOffset so the Entity e will be in the center
+		 */
 		xOffset = e.getpX() - handler.getWidth() / 2 + e.getWidth() / 2;
 		yOffset = e.getpY() - handler.getHeight() / 2 + e.getHeight() / 2;
 		checkBlankSpace();
 	} 
 	
-	// keep the camera into the world properties
 	public void checkBlankSpace(){	
+		/*
+		 * keep the camera into the world properties 
+		 */
 		if(xOffset < 0){
 			xOffset = 0;
 		}else if(xOffset > handler.getWorld().getWidth() * Tile.TILE_WIDTH - handler.getWidth()){

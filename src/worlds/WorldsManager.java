@@ -40,6 +40,10 @@ public class WorldsManager {
 	
 	
 	private void changeToNextWorld() {
+		/*
+		 * change the current world to next world available.
+		 * if there is no more worlds pop a message.
+		 */
 		this.currentWorldNum++;
 		if(this.currentWorldNum > this.maxWorldNum){
 			ErrorHandler.NoMoreMapError();

@@ -15,10 +15,7 @@ public class UIImageButton extends UIObject {
 	}
 
 	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void tick() {}
 
 	@Override
 	public void render(Graphics g) {

@@ -1,3 +1,0 @@
-IMPROVMENT: AutoMove range
-IMPROVMENT: Change the monster animation
-IMPROVMENT: Mini map

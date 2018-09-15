@@ -54,7 +54,9 @@ public class World {
 	}
 	
 	public Tile getTile(int x, int y){
-/*		find the tile in the x and y position - NOT PIXELS */
+		/* 
+		 * find the tile in the x and y position - NOT PIXELS
+		 */
 		if(x < 0 || y < 0 || x >= width || y >= height){
 			return Tile.bg;
 		}
@@ -67,6 +69,10 @@ public class World {
 	
 
 	private void loadWorld(String path) {
+		/*
+		 * load a new world and create it's entities.
+		 * if there is no monsters pop an error.
+		 */
 		int numOfMonsters = 0;
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");

@@ -15,5 +15,9 @@ Build New Map:
 4. The next lines contain the map structure, use the next dictionary:
 0 = air, 1 = left corner, 2 = ground, 3 = right corner, 4 = upper left corner, 5 = upper middle corner, 6 = upper right corner, 7 = saved for future use, 8 = tree, 9 = monster starting point.
 
+Sprites taken from: https://www.gameart2d.com
+
+Things to add:
+1. Player attack animation.
 
 

@@ -35,6 +35,9 @@ public class MenuState extends State {
 	
 	
 	private void createButtons(){
+		/*
+		 * create new buttons and images to show in the menu state.
+		 */
 		uiManager.addObject(new UIImageStatic(340, 20, 600, 221, Assets.logo));
 		
 		uiManager.addObject(new UIImageButton(370, 400, 540, 105, Assets.btnStart, new ClickListener() {

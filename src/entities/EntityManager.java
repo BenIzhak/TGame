@@ -24,6 +24,10 @@ public class EntityManager {
 	}
 
 	public void tick() {
+		/*
+		 * call the tick method of the active entities if entity
+		 * is not currently active remove it from the list.  
+		 */
 		for (int i = 0; i < creatures.size(); i++) {
 			Entity e = creatures.get(i);
 			if (e.active) {
@@ -41,7 +45,9 @@ public class EntityManager {
 	}
 
 	public void render(Graphics g) {
-		// render static entities first
+		/*
+		 * render static entities first so they will appear in the background.
+		 */
 		for (Entity e : StaticEntities) {
 			e.render(g);
 		}
@@ -54,6 +60,9 @@ public class EntityManager {
 	}
 
 	public void addEntity(Entity e) {
+		/*
+		 * add new entity to the relevant list.
+		 */
 		if (e instanceof Creature) {
 			creatures.add((Creature) e);
 		} else {

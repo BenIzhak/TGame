@@ -33,6 +33,9 @@ public class GameState extends State {
 	}
 	
 	private void barsUpdate(){
+		/*
+		 * update the bars in the panel according to the player states.
+		 */
 		int LEVEL = handler.getWorld().getEntityManager().getPlayer().getLevel();
 		int SP = (handler.getWorld().getEntityManager().getPlayer().getStanima() * 100) / Player.PLAYER_STANIMA;
 		int HP = (handler.getWorld().getEntityManager().getPlayer().getHealth() * 100) / Player.DEFAULT_HEALTH;

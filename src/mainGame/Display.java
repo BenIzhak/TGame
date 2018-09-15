@@ -47,8 +47,10 @@ public class Display {
 		createDisplay();
 	}
 
-	// creates new display
 	private void createDisplay() {
+		/*
+		 * creates new display
+		 */
 		frame = new JFrame(title);
 		frame.setSize(windowWidth, windowHeight);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,7 +78,9 @@ public class Display {
 	}
 	
 	private void createPanel(){
-		// init the panel components.
+		/*
+		 * create and initialize the panel components.
+		 */
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(panelWidth, panelHeight));
 		panel.setMaximumSize(new Dimension(panelWidth, panelHeight));
@@ -176,6 +180,10 @@ public class Display {
 	}
 	
 	public void setPanelVisibility(boolean visibility){
+		/*
+		 * control the panel visibility. we don't want the see the panel
+		 * in the menu state.   
+		 */
 		panel.setVisible(visibility);
 	}
 	

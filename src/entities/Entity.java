@@ -8,10 +8,10 @@ import mainGame.Handler;
 public abstract class Entity {
 	
 	protected float pX, pY; // the current position of the entity
-	protected int width, height; // Creature width and height
+	protected int width, height; // entity width and height
 	protected Handler handler;
-	protected Rectangle bounds;
-	protected boolean active;
+	protected Rectangle bounds; // the entity bounds for collision
+	protected boolean active; // true if the entity is currently active
 	
 
 	public Entity(Handler handler, float pX, float pY, int width, int height) {
