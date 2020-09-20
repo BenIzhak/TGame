@@ -5,11 +5,15 @@ import java.awt.Graphics;
 import entities.EntityManager;
 import entities.creatures.*;
 import entities.statics.Tree;
+import javafx.scene.media.MediaPlayer;
 import mainGame.ErrorHandler;
 import mainGame.Handler;
 import mainGame.gfx.Assets;
+import mainGame.gfx.MusicPlayer;
 import tiles.Tile;
 import utils.Utils;
+
+import static mainGame.gfx.MusicPlayer.initMediaPlayer;
 
 public class World {
 	
@@ -20,8 +24,9 @@ public class World {
 	private int[][] tiles; // [x][y]
 	// Entities
 	private EntityManager entityManager;
+	private MediaPlayer mediaPlayer;
 	
-	public World(Handler handler, Player player ,String path){
+	public World(Handler handler, Player player ,String path, String musicPath){
 		this.handler = handler;
 		// Create new Entity manager and Player
 		entityManager = new EntityManager(handler, player);
@@ -30,6 +35,9 @@ public class World {
 		// Player spawn
 		entityManager.getPlayer().setpX(spawnX * Tile.TILE_WIDTH);
 		entityManager.getPlayer().setpY(spawnY * Tile.TILE_HEIGHT - spawnYElignment);
+		// Play music
+		mediaPlayer = initMediaPlayer(musicPath);
+		playMusic();
 	}
 	
 	public void tick(){
@@ -66,7 +74,15 @@ public class World {
 		}
 		return t;
 	}
-	
+
+	public void playMusic(){
+		this.mediaPlayer.play();
+	}
+
+	public void stopMusic(){
+		this.mediaPlayer.stop();
+		this.mediaPlayer.dispose();
+	}
 
 	private void loadWorld(String path) {
 		/*
@@ -90,7 +106,7 @@ public class World {
 				if(currentTile == 9){
 					// Add new monster to the map if the currentTile is 9
 					numOfMonsters++;
-					entityManager.addEntity(new Monster(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT - spawnYElignment, (int) (Creature.DEFAULT_CREATURE_WIDTH), (int) (Creature.DEFAULT_CREATURE_HEIGHT * 1.25)));
+					entityManager.addEntity(new Monster(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT - spawnYElignment, Creature.DEFAULT_CREATURE_WIDTH, (int) (Creature.DEFAULT_CREATURE_HEIGHT * 1.25), true));
 				}
 				if(currentTile == 8){
 					entityManager.addEntity(new Tree(handler, (x-1) * Tile.TILE_WIDTH, (y-1) * Tile.TILE_HEIGHT));
@@ -103,7 +119,6 @@ public class World {
 		}
 		
 	}
-	
 
 	public int getWidth() {
 		//Tiles NOT pixels

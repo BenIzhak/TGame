@@ -8,7 +8,8 @@ import java.util.Random;
 import mainGame.Handler;
 import mainGame.gfx.Animation;
 import mainGame.gfx.Assets;
-import tiles.Tile;
+
+import static tiles.Tile.TILE_WIDTH;
 
 public class Monster extends Creature {
 
@@ -16,19 +17,22 @@ public class Monster extends Creature {
 	private Animation animWalkRight;
 	private Animation animWalkLeft;
 
-	private float spawnX;
+	//private float spawnX;
 	private long attackSpeed = 10; // Every "attackSpeed" frames try to attack.
 									// 60 mean try to attack every second.
 	private long attackTimeCounter; // when this var is equal to attackSpeed try
 									// to attack.
+	private boolean moveToTarget; // True means the creature move toward the player, otherwise move randomly
+	private static final Random random = new Random();
 
-	public Monster(Handler handler, float pX, float pY, int width, int height) {
+	public Monster(Handler handler, float pX, float pY, int width, int height, boolean moveToTarget) {
 		super(handler, pX, pY, width, height);
-		this.spawnX = pX;
+		//this.spawnX = pX;
 		bounds.x = 36;
 		bounds.y = 20;
 		bounds.width = width - 60;
 		bounds.height = height - 37;
+		this.moveToTarget = moveToTarget;
 		animationInit();
 		randMoveSpeed();
 	}
@@ -41,7 +45,7 @@ public class Monster extends Creature {
 		// Movement
 		if (health > 0) {
 			attack();
-			autoMove();
+			applyMovement();
 			move();
 		}else{
 			die();
@@ -90,29 +94,78 @@ public class Monster extends Creature {
 		}
 	}
 
+	private void applyMovement(){
+		if (moveToTarget){
+			autoMove();
+		}else{
+			autoMoveRnd();
+		}
+	}
+
 	// Movement section
-	private void autoMove() {
+	private void autoMoveRnd() {
 		/*
 		 * responsible for the monster automatic movement.
 		 */
-		sideChange(Tile.TILE_WIDTH, Tile.TILE_WIDTH);
+		sideChange();
 		yMove = gravity;
-		if (side == false) {
+		if (!side) {
 			xMove = +speed;
 		} else {
 			xMove = -speed;
 		}
 	}
 
-	private void sideChange(float maxLeft, float maxRight) {
+	private void autoMove() {
+		/*
+		 * responsible for the monster automatic movement.
+		 */
+		float distanceFromPlayerX = (handler.getPlayer().getpX() + handler.getPlayer().getWidth() / 2 - (pX + getWidth() / 2));
+		boolean sameAltitude = Math.abs(handler.getPlayer().getpY() - pY) < 20;
+		yMove = gravity;
+		if (sameAltitude && Math.abs(distanceFromPlayerX) < TILE_WIDTH * 2 && groundDetector()){
+			// In the same altitude and in far at most 2 tiles from player
+			if (distanceFromPlayerX > TILE_WIDTH){
+				side = false;
+				xMove = +speed;
+			}else if (distanceFromPlayerX < -TILE_WIDTH){
+				side = true;
+				xMove = -speed;
+			}else{
+				if (side){
+					xMove = -speed;
+				}else{
+					xMove = +speed;
+				}
+			}
+		}else {
+//			if (side && groundDetector()){
+//				xMove = -speed;
+//			}else if (!side && groundDetector()){
+//				xMove = +speed;
+//			}else{
+//				side = !side;
+//				if (side){
+//					xMove = -speed;
+//				}else {
+//					xMove = +speed;
+//				}
+//			}
+			autoMoveRnd();
+		}
+	}
+
+	private void sideChange() {
 		/*
 		 * change the side that the monster move to.
 		 * maxLeft and maxRight are the boundaries from the spawn position.
 		 */
-		if (pX <= spawnX - maxLeft && groundDetictor()) {
-			side = false;
-		} else if (pX >= spawnX + maxRight && groundDetictor()) {
-			side = true;
+
+		boolean true25 = random.nextInt(180) == 0;
+		if (true25 && groundDetector()) {
+			side = !side;
+		} else if (!groundDetector()) {
+			side = !side;
 		}
 	}
 

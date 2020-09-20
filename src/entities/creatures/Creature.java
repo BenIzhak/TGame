@@ -102,19 +102,15 @@ public abstract class Creature extends Entity {
 
 	}
 
-	public boolean groundDetictor() {
+	public boolean groundDetector() {
 		/*
 		 * check if there is a solid tile (d pixels) under the creature
 		 */
 		int d = 3;
-		if (collisionWithTile((int) (pX + bounds.x + 1) / Tile.TILE_WIDTH,
+		return collisionWithTile((int) (pX + bounds.x + 1) / Tile.TILE_WIDTH,
 				(int) (pY + bounds.y + bounds.height + d) / Tile.TILE_HEIGHT)
 				&& collisionWithTile((int) (pX + bounds.x + bounds.width - 1) / Tile.TILE_WIDTH,
-						(int) (pY + bounds.y + bounds.height + d) / Tile.TILE_HEIGHT)) {
-			return true;
-		} else {
-			return false;
-		}
+				(int) (pY + bounds.y + bounds.height + d) / Tile.TILE_HEIGHT);
 
 	}
 

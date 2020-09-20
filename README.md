@@ -15,10 +15,13 @@ Build A New Map:
 4. The next lines contain the map structure, use the next dictionary:
 0 = air, 1 = left corner, 2 = ground, 3 = right corner, 4 = upper left corner, 5 = upper middle corner, 6 = upper right corner, 7 = saved for future use, 8 = tree, 9 = monster starting point.
 
-Sprites taken from: https://www.gameart2d.com
+Credit:
+1. Sprites taken from: https://www.gameart2d.com
+2. Music: Ornery Brunt (New Combination) by Speck (c) copyright 2019 Licensed under a Creative Commons Attribution (3.0) license. http://dig.ccmixter.org/files/speck/59700 Ft: Martijn de Boer, Apoxode
 
 Things to add:
 1. Player attack animation.
-2. Improve the creatures autoMove method.
+2. Add metadata for world (music, max time)
+3. Add sound effects
 
 

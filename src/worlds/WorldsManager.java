@@ -6,6 +6,7 @@ import java.io.File;
 import entities.creatures.Player;
 import mainGame.ErrorHandler;
 import mainGame.Handler;
+import mainGame.gfx.MusicPlayer;
 
 public class WorldsManager {
 	
@@ -21,7 +22,8 @@ public class WorldsManager {
 		this.maxWorldNum = maxWorldNum;
 		this.currentWorldNum = 1;
 		this.player = player;
-		this.currentWorld = new World(handler, player, "res/maps/world1.txt"); // map to begin with
+		MusicPlayer.initJavaFx();
+		this.currentWorld = new World(handler, player, "res/maps/world1.txt", "/music/speck_-_Ornery_Brunt_(New_Combination)_1.mp3"); // map to begin with
 		this.maxWorldNum = new File("res/maps").listFiles().length;
 	}
 	
@@ -48,7 +50,8 @@ public class WorldsManager {
 		if(this.currentWorldNum > this.maxWorldNum){
 			ErrorHandler.NoMoreMapError();
 		}
-		this.currentWorld = new World(handler, player, "res/maps/world"+ this.currentWorldNum + ".txt");
+		this.currentWorld.stopMusic();
+		this.currentWorld = new World(handler, player, "res/maps/world"+ this.currentWorldNum + ".txt", "/music/speck_-_Ornery_Brunt_(New_Combination)_1.mp3");
 	}
 	
 	
